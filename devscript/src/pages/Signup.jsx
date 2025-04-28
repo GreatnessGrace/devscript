@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '', adminKey: '' });
-  const [isAdmin, setIsAdmin] = useState(false); // Toggle for Admin Key field
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
@@ -29,23 +29,35 @@ const Signup = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-100">
-      <form className="bg-white p-8 rounded shadow-md w-80" onSubmit={handleSignup}>
-        <h2 className="text-2xl font-bold mb-6 text-center">Signup</h2>
-
-        <input
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 text-center">Create Account</h1>
+            <p className="text-gray-500 text-center mt-2">Join our community</p>
+          </div>
+          <form className="space-y-4" onSubmit={handleSignup}>
+        {/* <input
           type="text"
           placeholder="Name"
-          className="input mb-4 w-full p-2 border rounded"
+          className="input mb-4 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           required
-        />
-
+        /> */}
+ <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <input
+                type="text"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+            </div>
         <input
           type="email"
           placeholder="Email"
-          className="input mb-4 w-full p-2 border rounded"
+          className="input mb-4 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           required
@@ -54,42 +66,44 @@ const Signup = () => {
         <input
           type="password"
           placeholder="Password"
-          className="input mb-4 w-full p-2 border rounded"
+          className="input mb-4 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           required
         />
 
-        <div className="flex items-center mb-4">
-          <input
-            type="checkbox"
-            id="adminToggle"
-            className="mr-2"
-            checked={isAdmin}
-            onChange={() => setIsAdmin(!isAdmin)} 
-          />
-          <label htmlFor="adminToggle" className="text-sm text-gray-600">
-            Sign up as Admin
-          </label>
-        </div>
+<div className="flex items-center">
+              <input
+                type="checkbox"
+                id="adminToggle"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                checked={isAdmin}
+                onChange={() => setIsAdmin(!isAdmin)}
+              />
+              <label htmlFor="adminToggle" className="ml-2 text-sm text-gray-600">
+                Register as Admin
+              </label>
+            </div>
 
         {isAdmin && (
           <input
             type="text"
             placeholder="Admin Secret Key"
-            className="input mb-6 w-full p-2 border rounded"
+            className="input mb-6 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={formData.adminKey}
             onChange={(e) => setFormData({ ...formData, adminKey: e.target.value })}
           />
         )}
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold"
-        >
-          Signup
-        </button>
-      </form>
+<button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-medium transition-colors"
+            >
+              Create Account
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
