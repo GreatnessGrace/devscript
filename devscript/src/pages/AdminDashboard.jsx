@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from '../api/axios';
+import { toast, Toaster } from 'react-hot-toast';
 
 const AdminDashboard = () => {
   const [blogs, setBlogs] = useState([]);
@@ -10,27 +11,43 @@ const AdminDashboard = () => {
   }, []);
 
   const fetchBlogs = async () => {
-    const { data } = await axios.get('/blogs');
-    setBlogs(data);
+    try {
+      const { data } = await axios.get('/blogs');
+      setBlogs(data);
+    } catch (error) {
+      toast.error('Failed to fetch blogs');
+    }
   };
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    await axios.post('/blogs', formData);
-    setFormData({ title: '', content: '' });
-    fetchBlogs();
+    try {
+      await axios.post('/blogs', formData);
+      setFormData({ title: '', content: '' });
+      fetchBlogs();
+      toast.success('Blog created successfully!');
+    } catch (error) {
+      toast.error('Only Admins can create the blog');
+    }
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/blogs/${id}`);
-    fetchBlogs();
+    try {
+      await axios.delete(`/blogs/${id}`);
+      fetchBlogs();
+      toast.success('Blog deleted successfully!');
+    } catch (error) {
+      toast.error('Only Admins can delete the blog');
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Admin Dashboard</h1>
-        
+
+        {/* Form */}
         <form onSubmit={handleCreate} className="bg-white rounded-xl shadow-sm p-6 mb-8">
           <div className="space-y-4">
             <div>
@@ -84,6 +101,7 @@ const AdminDashboard = () => {
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );
