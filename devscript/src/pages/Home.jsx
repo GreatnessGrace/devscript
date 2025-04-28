@@ -14,12 +14,15 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="p-6 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {blogs.map(blog => (
-        <BlogCard key={blog._id} blog={blog} />
-      ))}
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {blogs.map(blog => (
+          <BlogCard key={blog._id} blog={blog} />
+        ))}
+      </div>
     </div>
   );
 };
+
 
 export default Home;
