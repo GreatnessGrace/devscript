@@ -1,8 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+
+  let role = null;
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      role = decoded.role; 
+    } catch (error) {
+      console.error('Invalid token:', error);
+    }
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -22,9 +33,11 @@ const Navbar = () => {
             <div className="ml-10 flex items-baseline space-x-6">
               {token ? (
                 <>
-                  <Link to="/admin" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md">
-                    Dashboard
-                  </Link>
+                  {role === 'admin' && (
+                    <Link to="/admin" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md">
+                      Dashboard
+                    </Link>
+                  )}
                   <button
                     onClick={handleLogout}
                     className="text-red-600 hover:text-red-700 flex items-center"
@@ -52,6 +65,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
 
 export default Navbar;
