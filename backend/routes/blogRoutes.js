@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', authMiddleware, getBlogs);
 router.post('/', authMiddleware, adminMiddleware, createBlog);
-router.put('/:id', authMiddleware, adminMiddleware, updateBlog);
+// router.put('/:id', authMiddleware, adminMiddleware, updateBlog);
 router.delete('/:id', authMiddleware, adminMiddleware, deleteBlog);
 router.get('/:id', getBlogById);
 

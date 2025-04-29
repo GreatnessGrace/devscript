@@ -36,14 +36,14 @@ exports.createBlog = async (req, res) => {
   }
 };
 
-exports.updateBlog = async (req, res) => {
-  try {
-    const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(blog);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// exports.updateBlog = async (req, res) => {
+//   try {
+//     const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
+//     res.json(blog);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
 exports.deleteBlog = async (req, res) => {
   try {
